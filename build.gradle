@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.18.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'org.nocturnum'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '4.0.4'
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'mysql:mysql-connector-java'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.batch:spring-batch-test'
+    testCompileOnly 'org.projectlombok:lombok'
+    testCompileOnly "org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.0"
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // junit5
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude module : 'junit'
+    }
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testCompileOnly("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+

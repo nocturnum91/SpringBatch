@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  data:
+    rest:
+      base-path: /
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 8
+  profiles:
+    active: local
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: never
+
+logging:
+  pattern:
+    console: '[%d{HH:mm:ss.SSS}] %-5level - [%logger.%method(%line)] | %m%n'
+  level:
+    org.nocturnum.batch: INFO
+    jdbc.sqlonly: OFF
+    jdbc.audit: OFF
+    jdbc.connection: OFF
+    jdbc.resultset: OFF
