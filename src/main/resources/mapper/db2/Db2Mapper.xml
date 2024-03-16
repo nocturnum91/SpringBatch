@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.nocturnum.batch.mapper.db2.Db2Mapper">
+
+    <select id="selectMemberList" resultType="ParameterMap">
+        SELECT id,
+               name,
+               email,
+               TO_CHAR(join_date, 'YYYY-MM-DD HH24:MI:SS')        AS join_date,
+               TO_CHAR(last_access_date, 'YYYY-MM-DD HH24:MI:SS') AS last_access_date
+        FROM tb_member
+        ORDER BY id
+        OFFSET #{_skiprows} limit #{_pagesize}
+    </select>
+
+    <select id="countMember" resultType="int">
+        SELECT count(*)
+        FROM tb_member
+    </select>
+
+</mapper>
