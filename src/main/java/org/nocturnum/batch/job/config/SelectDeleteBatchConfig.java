@@ -1,4 +1,4 @@
-package org.nocturnum.batch.config;
+package org.nocturnum.batch.job.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;

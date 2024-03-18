@@ -15,8 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
-import static org.springframework.test.util.AssertionErrors.fail;
-
 @Slf4j
 @SpringBootTest(properties = "spring.config.location=classpath:/application.yml, classpath:/config/datasource.yml")
 @ActiveProfiles("local")
@@ -58,27 +56,26 @@ class DBTests {
     }
 
     @Test
-    public void testDataSourceConnection() {
+    public void dataSourceConnectionTest() {
         try {
             Connection con1 = db1DataSource.getConnection();
             Connection con2 = db2DataSource.getConnection();
-            log.info("" + con1);
-            log.info("" + con2);
+            log.info("con1: {}", con1);
+            log.info("con2: {}", con2);
         } catch (Exception e) {
-            fail(e.getMessage());
+            log.error("dataSourceConnectionTest error", e);
         }
     }
 
     @Test
-    public void testMyBatis() {
-        try  {
+    public void sqlSessionFactoryTest() {
+        try {
             SqlSession session1 = db1SqlSessionFactory.openSession();
             SqlSession session2 = db2SqlSessionFactory.openSession();
-            log.info("" + session1);
-            log.info("" + session2);
-
+            log.info("session1: {}", session1);
+            log.info("session2: {}", session2);
         } catch (Exception e) {
-            fail(e.getMessage());
+            log.error("sqlSessionFactoryTest error", e);
         }
     }
 

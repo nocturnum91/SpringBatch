@@ -4,14 +4,16 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+import org.nocturnum.batch.common.config.Db1Config;
+import org.nocturnum.batch.common.config.Db2Config;
 import org.nocturnum.batch.common.utils.ParameterMap;
-import org.nocturnum.batch.common.config.db.Db1Config;
-import org.nocturnum.batch.common.config.db.Db2Config;
 import org.nocturnum.batch.mapper.db1.Db1Mapper;
 import org.nocturnum.batch.mapper.db2.Db2Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.List;
 
 @MybatisTest(properties = "spring.config.location=classpath:/application.yml, classpath:/config/datasource.yml")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -31,8 +33,10 @@ public class MapperTests {
         ParameterMap parameterMap = new ParameterMap();
         parameterMap.put("_skiprows", 0);
         parameterMap.put("_pagesize", 10);
-        parameterMap.put("ID", "nocturnum91");
-        log.info(db1Mapper.selectDeleteTargetMember(parameterMap).toString());
+        List<ParameterMap> result = db1Mapper.selectDeleteTargetMember(parameterMap);
+        result.forEach(resultMap -> {
+            log.info("resultMap: {}", resultMap);
+        });
     }
 
     @Test
@@ -43,14 +47,14 @@ public class MapperTests {
         parameterMap.put("email", "aaa@mail.com");
         parameterMap.put("join_date", "2023-02-05 17:05:00");
         parameterMap.put("last_access_date", "2023-02-07 17:05:00");
-        log.info("" + db1Mapper.insertMember(parameterMap));
+        db1Mapper.insertMember(parameterMap);
     }
 
     @Test
     public void deleteMemberTest() throws Exception {
         ParameterMap parameterMap = new ParameterMap();
         parameterMap.put("id", "aaa");
-        log.info("" + db1Mapper.deleteMember(parameterMap));
+        db1Mapper.deleteMember(parameterMap);
     }
 
     @Test
@@ -58,8 +62,10 @@ public class MapperTests {
         ParameterMap parameterMap = new ParameterMap();
         parameterMap.put("_skiprows", 0);
         parameterMap.put("_pagesize", 10);
-
-        log.info("" + db2Mapper.selectMemberList(parameterMap));
+        List<ParameterMap> result = db2Mapper.selectMemberList(parameterMap);
+        result.forEach(resultMap -> {
+            log.info("resultMap: {}", resultMap);
+        });
     }
 
 }

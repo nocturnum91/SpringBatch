@@ -1,4 +1,4 @@
-package org.nocturnum.batch.common.config.db;
+package org.nocturnum.batch.common.config;
 
 
 import com.zaxxer.hikari.HikariDataSource;
