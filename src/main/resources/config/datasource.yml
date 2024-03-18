@@ -3,9 +3,7 @@ mybatis:
     map-underscore-to-camel-case: true
     jdbc-type-for-null: null
 
----
 spring:
-  profiles: local
   datasource:
     db1:
       name: db1DataSource

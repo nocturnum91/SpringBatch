@@ -13,11 +13,9 @@ spring:
       pool:
         core-size: 8
         max-size: 8
-  profiles:
-    active: local
   batch:
     job:
-      enabled: false
+      enabled: true
     jdbc:
       initialize-schema: never
 
